@@ -15,7 +15,7 @@ class Yireo_ProductTemplates_Helper_Data extends Mage_Core_Helper_Abstract
 {
     public function getTemplateFile($productType)
     {
-        $options = array($productType, 'default', 'example');
+        $options = array($productType, 'default');
         foreach($options as $option) {
             $templateFile = Mage::getDesign()->getTemplateFilename('producttemplates/'.$option.'.xml');
             if(is_file($templateFile) && is_readable($templateFile)) {
