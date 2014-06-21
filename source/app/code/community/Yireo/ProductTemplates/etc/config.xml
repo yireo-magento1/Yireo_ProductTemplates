@@ -1,0 +1,132 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Yireo ProductTemplates for Magento 
+ *
+ * @package     Yireo_ProductTemplates
+ * @author      Yireo (http://www.yireo.com/)
+ * @copyright   Copyright (c) 2014 Yireo (http://www.yireo.com/)
+ * @license     Open Software License
+ */
+-->
+<config>
+
+    <modules>
+        <Yireo_ProductTemplates>
+            <version>0.0.1</version>
+        </Yireo_ProductTemplates>
+    </modules>
+
+    <global>
+        <blocks>
+            <producttemplates>
+                <class>Yireo_ProductTemplates_Block</class>
+            </producttemplates>
+        </blocks>
+
+        <helpers>
+            <producttemplates>
+                <class>Yireo_ProductTemplates_Helper</class>
+            </producttemplates>
+        </helpers>
+
+        <models>
+            <producttemplates>
+                <class>Yireo_ProductTemplates_Model</class>
+            </producttemplates>
+        </models>
+	</global>
+
+    <adminhtml>
+        <translate>
+            <modules>
+                <Yireo_ProductTemplates>
+                    <files>
+                        <default>Yireo_ProductTemplates.csv</default>
+                    </files>
+                </Yireo_ProductTemplates>
+            </modules>
+        </translate>
+        <!--<menu>
+             <system>
+                <children>
+                    <tools>
+                        <children>
+                            <producttemplates translate="title" module="producttemplates">
+                                <title>Email Tester</title>
+                                <action>producttemplates/index/index</action>
+                            </producttemplates>
+                        </children>
+                    </tools>
+                </children>
+             </system>
+        </menu>
+        <layout>
+            <updates>
+                <producttemplates>
+                    <file>producttemplates.xml</file>
+                </producttemplates>
+            </updates>
+        </layout>-->
+        <acl>
+            <resources>
+                <admin>
+                    <children>
+                        <system>
+                            <children>
+                                <!--<tools>
+                                    <children>
+                                        <producttemplates>
+                                            <title>Product Templates</title>
+                                        </producttemplates>
+                                    </children>
+                                </tools>-->
+                                <config>
+                                    <children>
+                                        <producttemplates>
+                                            <title>Yireo_ProductTemplates Settings</title>
+                                        </producttemplates>
+                                    </children>
+                                </config>
+                            </children>
+                        </system>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
+
+        <events>
+            <catalog_product_new_action>
+                <observers>
+                    <producttemplates_catalog_product_new_action>
+                        <type>singleton</type>
+                        <class>Yireo_ProductTemplates_Model_Observer</class>
+                        <method>catalogProductNewAction</method>
+                    </producttemplates_catalog_product_new_action>
+                </observers>
+            </catalog_product_new_action>
+            <controller_action_predispatch>
+                <observers>
+                    <producttemplates_controller_action_predispatch>
+                        <type>singleton</type>
+                        <class>Yireo_ProductTemplates_Model_Observer</class>
+                        <method>controllerActionPredispatch</method>
+                    </producttemplates_controller_action_predispatch>
+                </observers>
+            </controller_action_predispatch>
+        </events>
+    </adminhtml>
+
+    <!--<admin>
+        <routers>
+            <producttemplates>
+                <use>admin</use>
+                <args>
+                    <module>Yireo_ProductTemplates</module>
+                    <frontName>producttemplates</frontName>
+                </args>
+            </producttemplates>
+        </routers>
+    </admin>-->
+
+</config>
