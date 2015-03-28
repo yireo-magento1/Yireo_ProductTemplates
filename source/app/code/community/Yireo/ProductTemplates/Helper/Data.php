@@ -4,7 +4,7 @@
  *
  * @package     Yireo_ProductTemplates
  * @author      Yireo (http://www.yireo.com/)
- * @copyright   Copyright (c) 2014 Yireo (http://www.yireo.com/)
+ * @copyright   Copyright 2015 Yireo (http://www.yireo.com/)
  * @license     Open Source License
  */
 
