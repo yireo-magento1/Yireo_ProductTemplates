@@ -1,4 +1,4 @@
 # Modman file
-source/app/code/community/Yireo/ProductTemplates app/code/community/Yireo/ProductTemplates
-source/app/design/adminhtml/default/default/template/* app/design/adminhtml/default/default/template/
-source/app/etc/modules/Yireo_ProductTemplates.xml app/etc/modules/
+source/app/code/community/Yireo/ProductTemplates                            app/code/community/Yireo/ProductTemplates
+source/app/design/adminhtml/default/default/template/producttemplates/*     app/design/adminhtml/default/default/template/producttemplates/
+source/app/etc/modules/Yireo_ProductTemplates.xml                           app/etc/modules/
