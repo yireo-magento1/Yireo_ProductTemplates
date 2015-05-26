@@ -26,8 +26,12 @@ class Yireo_ProductTemplates_Model_Observer extends Mage_Core_Model_Abstract
         // Get the empty product from the event
         $product = $observer->getEvent()->getProduct();
 
-        // Load the template values by
-        $product->setTypeId('virtual');
+        // Make sure there is no ID
+        if ($product->getId() > 0) {
+            return;
+        }
+
+        // Load the template values by product type
         $productType = $product->getTypeId();
         $defaultValues = $this->getHelper()->getDefaultValues($productType);
 
