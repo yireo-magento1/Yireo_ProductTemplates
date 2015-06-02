@@ -17,7 +17,7 @@ class Yireo_ProductTemplates_Model_Feed extends Mage_AdminNotification_Model_Fee
     /**
      * Return the feed URL
      */
-    protected $customFeedUrl = 'www.yireo.com/extfeed?format=feed&platform=magento&extension=producttemplates';
+    protected $customFeedUrl = 'https://www.yireo.com/extfeed?format=feed&platform=magento&extension=producttemplates';
 
     /**
      * Return the feed URL
@@ -26,7 +26,7 @@ class Yireo_ProductTemplates_Model_Feed extends Mage_AdminNotification_Model_Fee
      */
     public function getFeedUrl() 
     {
-        return Mage::getStoreConfigFlag(self::XML_USE_HTTPS_PATH) ? 'https://' : 'http://'.$this->customFeedUrl;
+        return $this->customFeedUrl;
     }
 
     /**
