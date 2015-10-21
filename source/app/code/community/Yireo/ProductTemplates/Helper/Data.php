@@ -46,7 +46,7 @@ class Yireo_ProductTemplates_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Get the product definitions
      *
-     * @param null $productType
+     *  $productType
      *
      * @return array|mixed
      */
@@ -101,6 +101,13 @@ class Yireo_ProductTemplates_Helper_Data extends Mage_Core_Helper_Abstract
         return $data;
     }
 
+    /**
+     * Method to parse default values and unset them if needed
+     *
+     * @param $data
+     *
+     * @return mixed
+     */
     public function parseDefaultValues($data)
     {
         if (isset($data['website_id'])) {

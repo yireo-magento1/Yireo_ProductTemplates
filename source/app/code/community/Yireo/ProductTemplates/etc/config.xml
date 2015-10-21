@@ -13,7 +13,7 @@
 
     <modules>
         <Yireo_ProductTemplates>
-            <version>0.1.0</version>
+            <version>0.2.1</version>
         </Yireo_ProductTemplates>
     </modules>
 
@@ -47,40 +47,12 @@
                 </Yireo_ProductTemplates>
             </modules>
         </translate>
-        <!--<menu>
-             <system>
-                <children>
-                    <tools>
-                        <children>
-                            <producttemplates translate="title" module="producttemplates">
-                                <title>Email Tester</title>
-                                <action>producttemplates/index/index</action>
-                            </producttemplates>
-                        </children>
-                    </tools>
-                </children>
-             </system>
-        </menu>
-        <layout>
-            <updates>
-                <producttemplates>
-                    <file>producttemplates.xml</file>
-                </producttemplates>
-            </updates>
-        </layout>-->
         <acl>
             <resources>
                 <admin>
                     <children>
                         <system>
                             <children>
-                                <!--<tools>
-                                    <children>
-                                        <producttemplates>
-                                            <title>Product Templates</title>
-                                        </producttemplates>
-                                    </children>
-                                </tools>-->
                                 <config>
                                     <children>
                                         <producttemplates>
@@ -96,6 +68,15 @@
         </acl>
 
         <events>
+            <catalog_product_save_before>
+                <observers>
+                    <producttemplates_catalog_product_save_before>
+                        <type>singleton</type>
+                        <class>Yireo_ProductTemplates_Model_Observer</class>
+                        <method>catalogProductSaveBefore</method>
+                    </producttemplates_catalog_product_save_before>
+                </observers>
+            </catalog_product_save_before>
             <catalog_product_new_action>
                 <observers>
                     <producttemplates_catalog_product_new_action>
@@ -116,17 +97,4 @@
             </controller_action_predispatch>
         </events>
     </adminhtml>
-
-    <!--<admin>
-        <routers>
-            <producttemplates>
-                <use>admin</use>
-                <args>
-                    <module>Yireo_ProductTemplates</module>
-                    <frontName>producttemplates</frontName>
-                </args>
-            </producttemplates>
-        </routers>
-    </admin>-->
-
 </config>

@@ -9,7 +9,7 @@
  * @link http://www.yireo.com
  */
 
-/*
+/**
  * ProductTemplates observer to various Magento events
  */
 class Yireo_ProductTemplates_Model_Observer extends Mage_Core_Model_Abstract
@@ -17,7 +17,6 @@ class Yireo_ProductTemplates_Model_Observer extends Mage_Core_Model_Abstract
     /**
      * Method fired on the event <catalog_product_new>
      *
-     * @access public
      * @param Varien_Event_Observer $observer
      * @return Yireo_ProductTemplates_Model_Observer
      */
@@ -31,6 +30,49 @@ class Yireo_ProductTemplates_Model_Observer extends Mage_Core_Model_Abstract
             return;
         }
 
+        $this->parseProduct($product);
+    }
+
+    /**
+     * Method fired on the event <catalog_product_save_before>
+     *
+     * @param Varien_Event_Observer $observer
+     * @return Yireo_ProductTemplates_Model_Observer
+     */
+    public function catalogProductSaveBefore($observer) 
+    {
+        // Get the empty product from the event
+        $product = $observer->getEvent()->getProduct();
+
+        // Make sure there is no ID
+        if ($product->getId() > 0) {
+            return;
+        }
+
+        $this->parseProduct($product);
+
+        return $this;
+    }
+
+    /**
+     * Method fired on the event <controller_action_predispatch>
+     *
+     * @param Varien_Event_Observer $observer
+     * @return Yireo_ProductTemplates_Model_Observer
+     */
+    public function controllerActionPredispatch($observer)
+    {
+        // Run the feed
+        Mage::getModel('producttemplates/feed')->updateIfAllowed();
+    }
+
+    /**
+     * Try to complete the product
+     * 
+     * @param Mage_Catalog_Model_Product $product
+     */
+    protected function parseProduct(&$product)
+    {
         // Load the template values by product type
         $productType = $product->getTypeId();
         $defaultValues = $this->getHelper()->getDefaultValues($productType);
@@ -54,19 +96,6 @@ class Yireo_ProductTemplates_Model_Observer extends Mage_Core_Model_Abstract
             $stockItem->setData($stockData);
             $product->setStockItem($stockItem);
         }
-    }
-
-    /**
-     * Method fired on the event <controller_action_predispatch>
-     *
-     * @access public
-     * @param Varien_Event_Observer $observer
-     * @return Yireo_ProductTemplates_Model_Observer
-     */
-    public function controllerActionPredispatch($observer)
-    {
-        // Run the feed
-        Mage::getModel('producttemplates/feed')->updateIfAllowed();
     }
 
     /**
