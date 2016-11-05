@@ -4,8 +4,8 @@
  * Yireo EmailTester for Magento 
  *
  * @package     Yireo_EmailTester
- * @author      Yireo (http://www.yireo.com/)
- * @copyright   Copyright (c) 2014 Yireo (http://www.yireo.com/)
+ * @author      Yireo (https://www.yireo.com/)
+ * @copyright   Copyright (c) 2014 Yireo (https://www.yireo.com/)
  * @license     Open Software License
  */
 -->
@@ -13,7 +13,7 @@
     <tabs>
         <yireo translate="label" module="producttemplates">
             <label>Yireo</label>
-            <sort_order>900</sort_order>
+            <sort_order>1000</sort_order>
         </yireo>
     </tabs>
     <sections>
@@ -21,7 +21,7 @@
             <label>Product Templates</label>
             <tab>yireo</tab>
             <frontend_type>text</frontend_type>
-            <sort_order>900</sort_order>
+            <sort_order>160</sort_order>
             <show_in_default>1</show_in_default>
             <show_in_website>1</show_in_website>
             <show_in_store>1</show_in_store>

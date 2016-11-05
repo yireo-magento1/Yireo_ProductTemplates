@@ -6,7 +6,7 @@
  * @package ProductTemplates
  * @copyright Copyright 2014
  * @license Open Software License
- * @link http://www.yireo.com
+ * @link https://www.yireo.com
  */
 
 /**
@@ -27,10 +27,12 @@ class Yireo_ProductTemplates_Model_Observer extends Mage_Core_Model_Abstract
 
         // Make sure there is no ID
         if ($product->getId() > 0) {
-            return;
+            return $this;
         }
 
         $this->parseProduct($product);
+
+        return $this;
     }
 
     /**
@@ -46,7 +48,7 @@ class Yireo_ProductTemplates_Model_Observer extends Mage_Core_Model_Abstract
 
         // Make sure there is no ID
         if ($product->getId() > 0) {
-            return;
+            return $this;
         }
 
         $this->parseProduct($product);
