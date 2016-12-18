@@ -4,7 +4,7 @@
  *
  * @author Yireo
  * @package Yireo_Common
- * @copyright Copyright 2014
+ * @copyright Copyright 2016
  * @license Open Source License (OSL)
  * @link https://www.yireo.com
  */
@@ -24,7 +24,7 @@ class Yireo_ProductTemplates_Model_Feed extends Mage_AdminNotification_Model_Fee
      *
      * @return string
      */
-    public function getFeedUrl() 
+    public function getFeedUrl()
     {
         return $this->customFeedUrl;
     }
@@ -47,7 +47,7 @@ class Yireo_ProductTemplates_Model_Feed extends Mage_AdminNotification_Model_Fee
         }
 
         // Is the feed disabled?
-        if((bool)Mage::getStoreConfig('yireo/common/disabled')) {
+        if ((bool)Mage::getStoreConfig('yireo/common/disabled')) {
             return false;
         }
 
