@@ -1,10 +1,10 @@
 <?php
 /**
- * Yireo ProductTemplates for Magento 
+ * Yireo ProductTemplates for Magento
  *
  * @package     Yireo_ProductTemplates
  * @author      Yireo (https://www.yireo.com/)
- * @copyright   Copyright (c) 2014 Yireo (https://www.yireo.com/)
+ * @copyright   Copyright (c) 2016 Yireo (https://www.yireo.com/)
  * @license     Open Source License
  */
 
@@ -16,84 +16,104 @@ class Yireo_ProductTemplates_Helper_Data extends Mage_Core_Helper_Abstract
     /**
      * Get the template file for product definitions
      *
-     * @param $productType
+     * @param Mage_Catalog_Model_Product $product
      *
-     * @return bool|string
+     * @return array
      */
-    public function getTemplateFile($productType)
+    public function getTemplateFiles(Mage_Catalog_Model_Product $product)
     {
-        $defaultOption = Mage::getStoreConfig('producttemplates/settings/xmlfile');
-        $defaultOption = preg_replace('/\.xml$/', '', $defaultOption);
-        if (empty($defaultOption)) {
-            $defaultOption = 'default';
-        }
+        $possibleConfigurationFiles = $this->getPossibleConfigurationFiles($product);
+        //print_r($possibleConfigurationFiles);exit;
 
-        $options = array($productType, $defaultOption);
-        foreach($options as $option) {
-            $templateFile = Mage::getDesign()->getTemplateFilename('producttemplates/'.$option.'.xml');
-            if(is_file($templateFile) && is_readable($templateFile)) {
-                break;
+        $templateFiles = [];
+
+        foreach ($possibleConfigurationFiles as $possibleConfigurationFile) {
+            foreach (['etc', 'template'] as $folderType) {
+                $templateFile = Mage::getDesign()->getFilename('producttemplates/' . $possibleConfigurationFile . '.xml', ['_type' => $folderType]);
+
+                if (!is_file($templateFile)) {
+                    continue;
+                }
+
+                if (!is_readable($templateFile)) {
+                    continue;
+                }
+
+                $templateFiles[] = $templateFile;
             }
         }
 
-        if(!is_file($templateFile) || !is_readable($templateFile)) {
-            return false;
+        return $templateFiles;
+    }
+
+    /**
+     * @return string
+     */
+    protected function getConfigurationFilePerSetting()
+    {
+        return Mage::getStoreConfig('producttemplates/settings/xmlfile');
+    }
+
+    /**
+     * @param Mage_Catalog_Model_Product $product
+     *
+     * @return array
+     */
+    protected function getPossibleConfigurationFiles(Mage_Catalog_Model_Product $product)
+    {
+        $configurationFiles = [];
+
+        $configurationFiles[] = 'default';
+
+        $option = $this->getConfigurationFilePerSetting();
+        if (!empty($option)) {
+            $configurationFiles[] = preg_replace('/\.xml$/', '', $option);
         }
 
-        return $templateFile;
+        $productType = $product->getTypeId();
+        if (!empty($productType)) {
+            $configurationFiles[] = $productType;
+        }
+
+        $productAttributeSetId = $product->getAttributeSetId();
+        if (!empty($productAttributeSetId)) {
+            $configurationFiles[] = 'attributeset_' . $productAttributeSetId;
+        }
+
+        return $configurationFiles;
+    }
+
+    /**
+     * @param $file
+     *
+     * @return string
+     */
+    protected function getDefaultTemplateLocation($file)
+    {
+        return Mage::getDesign()->getTemplateFilename('producttemplates/' . $file);
     }
 
     /**
      * Get the product definitions
      *
-     *  $productType
+     * @param Mage_Catalog_Model_Product $product
      *
-     * @return array|mixed
+     * @return array
      */
-    public function getDefaultValues($productType = null)
+    public function getDefaultValues(Mage_Catalog_Model_Product $product)
     {
-        $templateFile = $this->getTemplateFile($productType);
-        if(empty($templateFile) || !file_exists($templateFile)) {
+        $templateFiles = $this->getTemplateFiles($product);
+
+        if (empty($templateFiles)) {
             return array();
         }
 
-        $xmlString = file_get_contents($templateFile);
+        $data = [];
 
-        try {
-            $xml = new SimpleXMLElement($xmlString);
-            $data = array();
-
-            foreach($xml->children() as $name => $attribute)
-            {
-                if (isset($attribute['type'])) {
-                    $type = (string) $attribute['type'];
-                } else {
-                    $type = null;
-                }
-
-                if ($type == 'csv') {
-                    $attributeValue = (string) $attribute;
-                    $data[$name] = explode(',', $attributeValue);
-
-                } elseif ($type == 'array') {
-                    $attributeOptions = array();
-                    foreach($attribute->children() as $optionName => $optionValue) {
-                        $attributeOptions[$optionName] = (string) $optionValue;
-                    }
-                    $data[$name] = $attributeOptions;
-
-                } elseif ($type == 'int') {
-                    $data[$name] = (string) $attribute;
-
-                } else {
-                    $data[$name] = (string) $attribute;
-                }
-            }
-
-            //print_r($data);exit;
-
-        } catch(Exception $e) {
-            return array();
+        foreach ($templateFiles as $templateFile) {
+            $xmlString = file_get_contents($templateFile);
+            $newData = $this->convertXmlToArray($xmlString);
+            $data = array_merge($data, $newData);
         }
 
         $data = $this->parseDefaultValues($data);
@@ -101,12 +121,51 @@ class Yireo_ProductTemplates_Helper_Data extends Mage_Core_Helper_Abstract
         return $data;
     }
 
+    protected function convertXmlToArray($xmlString)
+    {
+        try {
+            $xml = new SimpleXMLElement($xmlString);
+            $data = array();
+
+            foreach ($xml->children() as $name => $attribute) {
+                if (isset($attribute['type'])) {
+                    $type = (string)$attribute['type'];
+                } else {
+                    $type = null;
+                }
+
+                if ($type == 'csv') {
+                    $attributeValue = (string)$attribute;
+                    $data[$name] = explode(',', $attributeValue);
+
+                } elseif ($type == 'array') {
+                    $attributeOptions = array();
+                    foreach ($attribute->children() as $optionName => $optionValue) {
+                        $attributeOptions[$optionName] = (string)$optionValue;
+                    }
+                    $data[$name] = $attributeOptions;
+
+                } elseif ($type == 'int') {
+                    $data[$name] = (string)$attribute;
+
+                } else {
+                    $data[$name] = (string)$attribute;
+                }
+            }
+
+            return $data;
+
+        } catch (Exception $e) {
+            return array();
+        }
+    }
+
     /**
      * Method to parse default values and unset them if needed
      *
-     * @param $data
+     * @param array $data
      *
-     * @return mixed
+     * @return array
      */
     public function parseDefaultValues($data)
     {
