@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<product>
+    <product_type>virtual</product_type>
+    <name>New Product</name>
+    <weight>0</weight>
+    <tax_class_id>2</tax_class_id>
+    <website_id>1</website_id>
+    <category_id>3</category_id>
+</product>

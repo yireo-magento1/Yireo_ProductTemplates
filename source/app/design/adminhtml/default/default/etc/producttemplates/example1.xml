@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<product>
+    <name>New Product</name>
+    <sku>product-01</sku>
+    <status>1</status><!-- 1 for enabled, 2 for disabled -->
+    <weight>0</weight>
+    <price>0</price>
+    <description>New Product</description>
+    <short_description>New Product</short_description>
+    <meta_title>New Product</meta_title>
+    <tax_class_id>1</tax_class_id>
+    <website_id>1</website_id>
+    <category_id>4</category_id>
+    <simple_test>1</simple_test>
+</product>

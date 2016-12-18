@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<product>
+    <name>New</name>
+    <description>New</description>
+    <short_description>New</short_description>
+    <sku>t%</sku>
+    <status>1</status>
+    <weight>0</weight>
+    <price>369</price>
+    <tax_class_id>2</tax_class_id>
+    <website_id>1</website_id>
+    <category_id>18</category_id>
+    <stock_data type="array">
+        <manage_stock>1</manage_stock>
+        <use_config_manage_stock>0</use_config_manage_stock>
+        <qty>199</qty>
+        <use_config_notify_stock_qty>12</use_config_notify_stock_qty>
+        <is_in_stock>1</is_in_stock>
+    </stock_data>
+</product>

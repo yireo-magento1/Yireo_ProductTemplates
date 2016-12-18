@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<product>
+    <status>1</status>    
+    <tax_class_id>2</tax_class_id>    
+    <weight type="int">1</weight>
+    <cb_status>unknown_pending</cb_status>
+    <website_ids type="csv">1,2</website_ids>
+    <category_ids type="csv">10,13</category_ids>
+    <stock_item type="array">
+        <use_config_manage_stock>0</use_config_manage_stock>
+        <manage_stock>1</manage_stock>
+        <is_in_stock>1</is_in_stock>
+        <min_sale_qty>3</min_sale_qty>
+        <max_sale_qty>33</max_sale_qty>
+        <qty>333</qty>
+    </stock_item>
+</product>
