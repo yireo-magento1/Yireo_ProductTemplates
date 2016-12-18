@@ -5,7 +5,7 @@
  *
  * @package     Yireo_ProductTemplates
  * @author      Yireo (https://www.yireo.com/)
- * @copyright   Copyright (c) 2014 Yireo (https://www.yireo.com/)
+ * @copyright   Copyright (c) 2016 Yireo (https://www.yireo.com/)
  * @license     Open Software License
  */
 -->
@@ -13,7 +13,7 @@
 
     <modules>
         <Yireo_ProductTemplates>
-            <version>0.2.1</version>
+            <version>0.3.0</version>
         </Yireo_ProductTemplates>
     </modules>
 
@@ -38,6 +38,14 @@
 	</global>
 
     <adminhtml>
+        <layout>
+            <updates>
+                <emailtester>
+                    <file>producttemplates.xml</file>
+                </emailtester>
+            </updates>
+        </layout>
+
         <translate>
             <modules>
                 <Yireo_ProductTemplates>
@@ -47,6 +55,7 @@
                 </Yireo_ProductTemplates>
             </modules>
         </translate>
+
         <acl>
             <resources>
                 <admin>
@@ -70,29 +79,29 @@
         <events>
             <catalog_product_save_before>
                 <observers>
-                    <producttemplates_catalog_product_save_before>
+                    <producttemplates_parse_products>
                         <type>singleton</type>
-                        <class>Yireo_ProductTemplates_Model_Observer</class>
+                        <class>Yireo_ProductTemplates_Observer_ProductParser</class>
                         <method>catalogProductSaveBefore</method>
-                    </producttemplates_catalog_product_save_before>
+                    </producttemplates_parse_products>
                 </observers>
             </catalog_product_save_before>
             <catalog_product_new_action>
                 <observers>
-                    <producttemplates_catalog_product_new_action>
+                    <producttemplates_parse_products>
                         <type>singleton</type>
-                        <class>Yireo_ProductTemplates_Model_Observer</class>
+                        <class>Yireo_ProductTemplates_Observer_ProductParser</class>
                         <method>catalogProductNewAction</method>
-                    </producttemplates_catalog_product_new_action>
+                    </producttemplates_parse_products>
                 </observers>
             </catalog_product_new_action>
             <controller_action_predispatch>
                 <observers>
-                    <producttemplates_controller_action_predispatch>
+                    <producttemplates_feed>
                         <type>singleton</type>
-                        <class>Yireo_ProductTemplates_Model_Observer</class>
+                        <class>Yireo_ProductTemplates_Observer_Feed</class>
                         <method>controllerActionPredispatch</method>
-                    </producttemplates_controller_action_predispatch>
+                    </producttemplates_feed>
                 </observers>
             </controller_action_predispatch>
         </events>

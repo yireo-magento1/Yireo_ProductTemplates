@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Yireo ProductTemplates for Magento
+ *
+ * @package     Yire_ProductTemplates
+ * @author      Yireo (https://www.yireo.com/)
+ * @copyright   Copyright (c) 2016 Yireo (https://www.yireo.com/)
+ * @license     Open Software License
+ */
+-->
+
+<layout>
+    <adminhtml_catalog_product_new>
+        <reference name="head">
+            <action method="addItem"><type>skin_js</type><name>js/producttemplates/core.js</name></action>
+        </reference>
+        <reference name="before_body_end">
+            <block name="producttemplates_data" type="producttemplates/js_data" />
+        </reference>
+    </adminhtml_catalog_product_new>
+</layout>

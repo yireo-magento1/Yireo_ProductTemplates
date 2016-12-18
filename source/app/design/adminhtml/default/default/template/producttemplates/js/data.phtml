@@ -1,0 +1,18 @@
+<?php
+/**
+ * Yireo ProductTemplates for Magento
+ *
+ * @package     Yireo_ProductTemplates
+ * @author      Yireo (https://www.yireo.com/)
+ * @copyright   Copyright 2016 Yireo (https://www.yireo.com/)
+ * @license     Open Source License (OSL v3)
+ */
+
+/**
+ * @var $this Yireo_ProductTemplates_Block_Js_Data
+ */
+?>
+<script>
+    var productDefaultValues = <?php echo json_encode($this->getDefaultProductValues()); ?>;
+    ProductTemplates.setValues(productDefaultValues).parse();
+</script>
