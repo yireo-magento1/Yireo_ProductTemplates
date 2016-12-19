@@ -37,4 +37,16 @@ class Yireo_ProductTemplates_Model_Observer
     {
         return $this;
     }
+
+    /**
+     * Method fired on the event <controller_action_predispatch>
+     *
+     * @param Varien_Event_Observer $observer
+     * @return Yireo_ProductTemplates_Model_Observer
+     * @deprecated
+     */
+    public function controllerActionPredispatch($observer)
+    {
+        return $this;
+    }
 }
