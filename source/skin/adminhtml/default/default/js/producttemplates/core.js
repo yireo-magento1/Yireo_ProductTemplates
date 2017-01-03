@@ -22,8 +22,21 @@ var ProductTemplates = (function () {
             document.getElementById('inventory_use_config_manage_stock').checked = false;
         }
 
+        if (this.values.stock_data.use_config_min_sale_qty == 0) {
+            document.getElementById('inventory_use_config_min_sale_qty').checked = false;
+            document.getElementById('inventory_min_sale_qty').disabled = false;
+            $('inventory_min_sale_qty').removeClassName('disabled');
+        }
+
+        if (this.values.stock_data.use_config_max_sale_qty == 0) {
+            document.getElementById('inventory_use_config_max_sale_qty').checked = false;
+            document.getElementById('inventory_max_sale_qty').disabled = false;
+            $('inventory_max_sale_qty').removeClassName('disabled');
+        }
+
         if (this.values.stock_data.manage_stock == 1) {
             document.getElementById('inventory_manage_stock').disabled = false;
+            $('inventory_manage_stock').removeClassName('disabled');
         }
 
         return this;
