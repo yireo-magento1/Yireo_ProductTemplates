@@ -24,7 +24,7 @@ class Yireo_ProductTemplates_Observer_Feed
      */
     public function __construct()
     {
-        $this->feedModel = Mage::getModel('disablelog/feed');
+        $this->feedModel = Mage::getModel('producttemplates/feed');
     }
 
     /**
