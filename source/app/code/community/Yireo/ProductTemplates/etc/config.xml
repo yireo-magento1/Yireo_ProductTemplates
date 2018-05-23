@@ -40,9 +40,9 @@
     <adminhtml>
         <layout>
             <updates>
-                <emailtester>
+                <producttemplates>
                     <file>producttemplates.xml</file>
-                </emailtester>
+                </producttemplates>
             </updates>
         </layout>
 
